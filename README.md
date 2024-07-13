@@ -15,23 +15,12 @@ The Sensor Monitoring System is a Java application that simulates and displays r
 - Java 8 or higher
 - Lanterna library (version 3.1.1 or higher)
 
-## Usage
+## Video Demonstration
 
-1. **Clone the repository**:
-    ```sh
-    git clone <repository_url>
-    cd <repository_directory>
-    ```
-
-2. **Compile the Java files**:
-    ```sh
-    javac -cp lanterna-3.1.1.jar:. Main.java
-    ```
-
-3. **Run the application**:
-    ```sh
-    java -cp lanterna-3.1.1.jar:. Main
-    ```
+<video width="600" controls>
+  <source src="video.webm" type="video/webm">
+  Your browser does not support the video tag.
+</video>
 
 ## License
 
