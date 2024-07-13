@@ -17,10 +17,7 @@ The Sensor Monitoring System is a Java application that simulates and displays r
 
 ## Video Demonstration
 
-<video width="600" controls>
-  <source src="video.webm" type="video/webm">
-  Your browser does not support the video tag.
-</video>
+[video.webm](https://github.com/user-attachments/assets/5ee8206e-d126-4449-a5a5-357965bb9640)
 
 ## License
 
