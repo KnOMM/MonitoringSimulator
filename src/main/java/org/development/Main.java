@@ -22,8 +22,8 @@ public class Main {
 
 
 
-        Display display = new Display(sensorSet);
-        display = new Display(sensorSet, TextColor.ANSI.CYAN, TextColor.ANSI.BLUE, TextColor.ANSI.YELLOW);
+//        Display display = new Display(sensorSet);
+        Display display = new Display(sensorSet, TextColor.ANSI.CYAN, TextColor.ANSI.BLUE, TextColor.ANSI.YELLOW);
         display.display();
         sensorChange.terminate();
     }

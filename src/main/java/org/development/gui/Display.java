@@ -13,8 +13,6 @@ import org.development.sensor.SensorSet;
 import org.development.sensor.Status;
 
 import java.io.IOException;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,6 +35,14 @@ public class Display {
     private int[] posX;
     private String[] labels = {"#", "LOCATION", "TEMPERATURE", "STATUS"};
 
+    /**
+     * Sets default colour scheme, initial positions for columns
+     *
+     * @param sensorSet list of sensors with additional information
+     * @param background colour for background
+     * @param mainColour main theme colour
+     * @param decoration colour for decorative purposes
+     */
     public Display(SensorSet sensorSet, TextColor background, TextColor mainColour, TextColor decoration) {
         initialize();
 
@@ -49,6 +55,11 @@ public class Display {
         changeX(screen.getTerminalSize());
     }
 
+    /**
+     * Sets default colour scheme and positions for columns
+     *
+     * @param sensorSet list of sensors with additional information
+     */
     public Display(SensorSet sensorSet) {
         initialize();
 
@@ -113,11 +124,9 @@ public class Display {
             if (graphSize < terminalSize.getColumns() / 3) {
                 graphSize = terminalSize.getColumns() / 3;
             }
-//            int graphSize = terminalSize.getColumns() / 3;terminalSize.getColumns() - (35)
-            int density = (int) (rows * 1.0 / sensorSet.getSensors().size());
             int margin;
 
-            density = (int) Math.round((rows - 7) * 1.0 / (sensorSet.getSensors().size() + 1));
+            int density = (int) Math.round((rows - 7) * 1.0 / (sensorSet.getSensors().size() + 1));
             margin = (rows - 7) - (density * (sensorSet.getSensors().size() - 1) + 4) + 4;
 
 
@@ -126,30 +135,14 @@ public class Display {
 
             List<Sensor> sensors = sensorSet.getSensors();
 
+            // rendering of rows
             for (int i = 0; i < sensors.size(); i++) {
                 int y = 4 + i * density + margin / 2;
-//                BigDecimal temp = BigDecimal.valueOf(sensors.get(i).getTemperature()).setScale(1, RoundingMode.HALF_UP);
-//                int x = 10;
-//
-//                int fillSize = (int) ((sensors.get(i).getTemperature() - minTemp) * graphSize / (maxTemp - minTemp));
-////                System.out.println(fillSize);
-//                if (fillSize > graphSize) {
-//                    fillSize = graphSize;
-//                } else if (fillSize < minTemp) {
-//                    fillSize = 0;
-//                }
-//
-//                screen.newTextGraphics().setForegroundColor(TextColor.ANSI.RED).setBackgroundColor(TextColor.ANSI.GREEN)
-//                        .putCSIStyledString( posX[2] - temp.toString().length(), y, temp.toString());
-//
-//                screen.newTextGraphics().drawLine(posX[2] + 2, y, posX[2] + 2 + graphSize, y, '0');
-//                if (fillSize > 0) screen.newTextGraphics().drawLine(posX[2] + 2, y, x + 2 + fillSize, y, '/');
-//                screen.newTextGraphics().setCharacter(x + 1, y, '[');
-//                screen.newTextGraphics().setCharacter(x + 3 + graphSize, y, ']');
                 drawEntry(sensors.get(i), graphSize, y, minTemp, maxTemp, i);
             }
             screen.refresh();
 
+            // notification for CPU
             Thread.yield();
         }
     }
@@ -231,7 +224,7 @@ public class Display {
             screen.newTextGraphics().setCharacter(1 + x + ("" + temp).length(), y, '[');
             screen.newTextGraphics().drawLine(2 + x + ("" + temp).length(), y, 2 + x + ("" + temp).length() + graphSize, y, '-');
 
-
+            // length of the graph bar
             int fillSize = (int) ((sensor.getTemperature() - min) * graphSize / (max - min));
             if (fillSize > graphSize) {
                 fillSize = graphSize;
@@ -243,24 +236,37 @@ public class Display {
                 screen.newTextGraphics().setBackgroundColor(mainColour).drawLine(2 + x + ("" + temp).length(), y, x + ("" + temp).length() + 3 + fillSize, y, ' ');
             screen.newTextGraphics().setCharacter(2 + x + ("" + temp).length() + graphSize + 1, y, ']');
 
-            int tempPer = (int) (6 * temp / Math.abs(max - min));
+            // setting colour for the state column
             Status statusColour ;
-            switch (tempPer) {
-                case 0:
-                    statusColour = Status.COLD;
-                    break;
-                case 1:
-                    statusColour = Status.COOL;
-                    break;
-                case 2:
-                    statusColour = Status.NORMAL;
-                    break;
-                case 3:
-                    statusColour = Status.WARM;
-                    break;
-                default:
-                    statusColour = Status.HOT;
-                    break;
+            if (temp < min) {
+statusColour = Status.COLD;
+            }
+            else if (temp > max) {
+                statusColour = Status.HOT;
+            }
+            else{
+
+                int tempPer = (int) (6 * temp / Math.abs(max - min));
+                switch (tempPer) {
+                    case 0:
+                        statusColour = Status.COLD;
+                        break;
+                    case 1:
+                        statusColour = Status.COOL;
+                        break;
+                    case 2:
+                        statusColour = Status.NORMAL;
+                        break;
+                    case 3:
+                        statusColour = Status.WARM;
+                        break;
+                    case 4:
+                        statusColour = Status.HOT;
+                        break;
+                    default:
+                        statusColour = Status.COLD;
+                        break;
+                }
             }
 
             screen.newTextGraphics().setForegroundColor(statusColour.getColor()).putString(posX[3], y,"      ");
@@ -270,6 +276,10 @@ public class Display {
 
     }
 
+    /**
+     *
+     * @param terminalSize - passed in size of terminal
+     */
     private void changeX(TerminalSize terminalSize) {
         int graphLength = terminalSize.getColumns() - (35);
         posX[0] = 3;

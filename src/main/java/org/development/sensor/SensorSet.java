@@ -17,8 +17,6 @@ public class SensorSet {
 
 
     /**
-     * Sets the character at the current position to the specified value
-     *
      * @param sensors prepared sensors list of {@link Sensor}s
      * @param shift   shows deviation value
      * @param min     shows minimum value for bar graph when being displayed
@@ -33,7 +31,7 @@ public class SensorSet {
 
 
     /**
-     * Sets the character at the current position to the specified value
+     * Creates random list of sensors' data
      *
      * @param size  size of randomly generated set of {@link Sensor}s
      * @param avg   average value for temperature

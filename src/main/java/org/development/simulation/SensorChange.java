@@ -1,11 +1,16 @@
 package org.development.simulation;
 
 import org.development.sensor.Sensor;
-import org.development.sensor.SensorSet;
 
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
+
+/**
+ * @author Nazar Zhuhan
+ * @file SensorChange.java
+ * @brief The class is responsible for simulation of data taken from sensors
+ */
 public class SensorChange implements Runnable {
 
     boolean isOn = true;
@@ -13,6 +18,11 @@ public class SensorChange implements Runnable {
     private List<Sensor> sensors;
     private double shift;
 
+    /**
+     *
+     * @param sensors - sensors to update (for simulation purposes)
+     * @param shift - the simulation difference
+     */
     public SensorChange(List<Sensor> sensors, double shift) {
         this.sensors = sensors;
         this.shift = shift;
