@@ -19,6 +19,7 @@ The Sensor Monitoring System is a Java application that simulates and displays r
 
 [video.webm](https://github.com/user-attachments/assets/5ee8206e-d126-4449-a5a5-357965bb9640)
 Swing terminal
+
 [example.webm](https://github.com/user-attachments/assets/96ad028f-a7cc-4136-94f5-9edd2ebb491b)
 Ubuntu terminal
 
