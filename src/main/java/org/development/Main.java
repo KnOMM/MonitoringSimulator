@@ -9,7 +9,7 @@ import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {
-        System.out.println("Hello world!");
+//        System.out.println("Hello world!");
 
         double[] values = {1.2, 2.4, 9.8, -2.5, 6.4, 10.2, 7, 4, 3.8};
         SensorSet sensorSet = new SensorSet(10,20, -10,50);
