@@ -18,26 +18,10 @@ The Sensor Monitoring System is a Java application that simulates and displays r
 ## Video Demonstration
 
 [video.webm](https://github.com/user-attachments/assets/5ee8206e-d126-4449-a5a5-357965bb9640)
-
-### Usage 
-
-1. **Clone the Repository**
-
-   ```bash
-   git clone https://github.com/KnOMM/MonitoringSimulator.git
-   cd MonitoringSimulator
-   ```
-2. **Build the Project**
-
-   ```bash
-   mvn clean install
-   ```
-
-3**Run the Application**
-
-   ```bash
-   java -jar target/MonitoringSystem-1.0-SNAPSHOT-jar-with-dependencies.jar
-   ```
+## Usage
+```commandline
+java -jar out/artifacts/MonitoringSystem_jar/MonitoringSystem.jar
+```
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
